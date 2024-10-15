@@ -18,12 +18,13 @@ basic
 
 body {
      color: #ffffcc;
-     font-size: 14px;
+     font-size: 12px;
      font-family: 'Roboto', sans-serif;
      line-height: 1.80857;
      font-weight: normal;
 	background-image: url("../images/box_bg.jpg");
 	background-position: center;
+     text-align: justify
 }
 
 a {
@@ -91,6 +92,10 @@ h6 {
 
 .purple-box p {
      text-align: justify;
+     font-size: 14px;
+     font-family: 'Roboto', sans-serif;
+     line-height: 18px;
+     padding:5px
 }
 
 .purple-box .read-more-btn {
@@ -129,10 +134,11 @@ button:focus {
 }
 
 p {
+     text-align: justify;
      margin: 0px;
      padding: 0;
      font-weight: 400;
-     font-size: 8px;
+     font-size: 10px;
      line-height: 12px;
 }
 
@@ -169,8 +175,6 @@ img {
      padding: 12px 40px;
      font-size: 16px;
 }
-
-
 
 button {
      border: 0;
