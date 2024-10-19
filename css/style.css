@@ -23,6 +23,7 @@ body {
      line-height: 1.80857;
      font-weight: normal;
 	background-image: url("../images/box_bg.jpg");
+     background-size: cover;
 	background-position: center;
      text-align: justify
 }
@@ -341,3 +342,31 @@ header {
 
 
 /** end contact section **/
+
+.img-container {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     height: 100%;
+   }
+.custom-img {
+     width: 100%;
+     max-width: 400px; /* Control image size */
+     height: 200px;
+     object-fit: cover;
+     transition: transform 0.5s ease; /* For smooth rotation */
+   }
+/* Mobile stacking images */
+@media (max-width: 768px) {
+     .img-container {
+       flex-direction: column;
+     }
+     .custom-img {
+       margin-bottom: 20px;
+     }
+   }
+/* Rotate effect */
+   .rotate {
+     transform: rotate(360deg);
+   }
+
