@@ -349,10 +349,16 @@ header {
      align-items: center;
      height: 100%;
    }
-.custom-img {
+.language-img {
      width: 100%;
-     max-width: 400px; /* Control image size */
+     max-width: 600px; /* Control image size */
      height: 200px;
+     object-fit: cover;
+   }
+.welcome-img {
+     width: 100%;
+     max-width: 500px; /* Control image size */
+     height: 400px;
      object-fit: cover;
      transition: transform 0.5s ease; /* For smooth rotation */
    }
