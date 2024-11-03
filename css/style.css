@@ -224,7 +224,7 @@ header {
 }
 
 .logo {
-     max-height: 50px;
+     max-height: 40px;
 }
 
 .title {
@@ -309,8 +309,8 @@ header {
    }
 .welcome-img {
      width: 100%;
-     max-width: 500px; /* Control image size */
-     height: 400px;
+     max-width: 100%; /* 500px by 400px Control image size */
+     height: 100%;
      object-fit: cover;
      transition: transform 0.5s ease; /* For smooth rotation */
    }
@@ -350,13 +350,16 @@ header {
 @media (max-width: 768px) {
      .img-container {
        flex-direction: column;
+       width: 40%;
      }
      .custom-img {
        margin-bottom: 20px;
+       margin-top: 20px;
      }
    }
 /* Rotate effect */
    .rotate {
      transform: rotate(360deg);
    }
+
 
