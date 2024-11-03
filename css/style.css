@@ -224,7 +224,12 @@ header {
 }
 
 .logo {
-     max-height: 40px;
+     max-height: 60px;
+}
+
+.flag {
+     max-height: 25px;
+     padding: 3px;
 }
 
 .title {
