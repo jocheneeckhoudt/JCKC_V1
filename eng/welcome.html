@@ -47,6 +47,25 @@ After a successful first edition, a mere taste for the festive correspondence bl
 Since you are here, you may have noticed that this year a digital accompaniment has been added to the more venerable tradition of the written word. Take this as a modest supplement to the card that conveys the essence of the time, namely that I wish you a merry Christmas, a happy and blissful new year and that in spirit, I am with you always, till the end of time. <hr>
 Yours sincerely,<br>
 Jochen Pedro G. Eeckhoudt</p>
+                </div>
+            </div>
+        </div>
+        <div class="container py-5">
+            <div class="card shadow-sm p-4 mx-auto" style="max-width:500px;">
+                <h3 class="mb-3 text-center"> Voer hier je persoonlijke code in:</h3>
+                <p class="text-muted text-center">
+                  Voer hieronder je persoonlijke code in die je op je kaartje terugvindt om je boodschap af te spelen!
+                </p>
+                <form id="codeForm">
+                    <div class="mb-3">
+                    <input type="text" id="codeInput" class="form-control" placeholder="Enter code" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Submit</button>
+                </form>
+                <div id="status" class="text-center mt-3 text-danger"></div>
+                <audio id="audioPlayer" hidden></audio>
+            </div>
+        </div>
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -106,5 +125,27 @@ Jochen Pedro G. Eeckhoudt</p>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script>
+            document.getElementById('codeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const code = document.getElementById('codeInput').value.trim();
+            const audio = document.getElementById('audioPlayer');
+            const status = document.getElementById('status');
+            if (!code) {
+                status.textContent = "Please enter a code.";
+                return;
+            }
+            const fileName = `${code}.wav`;
+            audio.src = "../audio/" + fileName;
+            audio.hidden = false;
+            audio.play()
+              .then(() => {
+                status.textContent = "";
+              })
+              .catch(() => {
+                status.textCotnent = `Could not play file ${fileName}. Please check your code again.`; 
+              });
+            });
+        </script>
     </body>
 </html>
