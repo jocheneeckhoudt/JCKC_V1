@@ -51,13 +51,13 @@ Jochen Pedro G. Eeckhoudt</p>
                 </div>
             </div>
         </div>
-        <div class="container py-5">
+	<div class="container py-5">
             <div class="card shadow-sm p-4 mx-auto" style="max-width:500px;">
                 <h3 class="mb-3 text-center"> Voer hier je persoonlijke code in:</h3>
                 <p class="text-muted text-center">
                   Voer hieronder je persoonlijke code in die je op je kaartje terugvindt om je boodschap af te spelen!
                 </p>
-                <label for="codeForm" class="form-label">Veld voor persoonlijke code</label>
+                <label for="codeForm" class="form-label">Vul je persoonlijke code hier in voor je eigen boodschap.</label>
                 <form id="codeForm">
                     <div class="mb-3">
                     <input type="text" id="codeInput" class="form-control" placeholder="Enter code" required>
@@ -66,9 +66,27 @@ Jochen Pedro G. Eeckhoudt</p>
                 </form>
                 <div id="status" class="text-center mt-3 text-danger"></div>
                 <audio id="audioPlayer" hidden></audio>
+				<!-- Video Modal -->
+				<div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="videoModalLabel">Your personal message</h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body p-0">
+								<video id="videoPlayer" controls style="width: 100%; height: auto;">
+									Gebruik een andere browser, want hier werkt het alvast niet.
+                                </video>
+                            </div>
+                        </div>
+		    </div>
+                </div>
             </div>
         </div>
-        <div class="container">
+	<div class="container">
             <div class="row">
                 <div class="col-md-3">
                     <div class="purple-box">
@@ -80,7 +98,7 @@ Jochen Pedro G. Eeckhoudt</p>
                 <div class="col-md-3">
                     <div class="purple-box">
                         <h1>Afgelopen Jaren</h1>
-                        <p>Dit is reeds het vierde jaar dat dit evenement plaatsvindt en hopelijk nog lang niet het laatste. Onder deze header vind je de kaarten van 2023, 2022 en 2020. Als je kaarten van andere jaren nog hebt, stuur ze me dan zeker door, want helaas kan ik ze niet meer vinden ☹.</p>
+                        <p>Dit is reeds het vijfde jaar dat dit evenement plaatsvindt en hopelijk nog lang niet het laatste. Onder deze header vind je de kaarten van 2023, 2022 en 2020. Als je kaarten van andere jaren nog hebt, stuur ze me dan zeker door, want helaas kan ik ze niet meer vinden ☹.</p>
                         <a href="card2024.html" class="btn btn-primary read-more-btn">Bekijk de voorgaande jaren</a>
                     </div>
                 </div>
@@ -128,27 +146,59 @@ Jochen Pedro G. Eeckhoudt</p>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script>
-            document.getElementById('codeForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const code = document.getElementById('codeInput').value.trim();
-            const audio = document.getElementById('audioPlayer');
-            const status = document.getElementById('status');
-            if (!code) {
-                status.textContent = "Please enter a code.";
-                return;
-            }
-            const fileName = `${code}.wav`;
-            audio.src = "../audio/" + fileName;
-            audio.hidden = false;
-            audio.play()
-              .then(() => {
-                status.textContent = "";
-              })
-              .catch(() => {
-                status.textCotnent = `Could not play file ${fileName}. Please check your code again.`; 
-              });
-            });
-        </script>
+		<script>
+		document.getElementById('codeForm').addEventListener('submit', function(event) {
+			event.preventDefault();
+			const code = document.getElementById('codeInput').value.trim();
+			const audio = document.getElementById('audioPlayer');
+			const video = document.getElementById('videoPlayer');
+			const status = document.getElementById('status');
+			if (!code) {
+				status.textContent = "Please enter a code.";
+				return;
+			}
+    // Codes that should play a video instead of audio
+			const videoCodes = [
+				"VIDEO001",
+				"VIDEO002",
+				"VIDEO003"
+			];
+    // Check if this code is a video code
+			if (videoCodes.includes(code.toUpperCase())) {
+				const fileName = `${code}.mp4`;
+        // Stop any currently playing audio
+				audio.pause();
+				audio.currentTime = 0;
+				audio.hidden = true;
+        // Set the video source
+				video.src = "../video/" + fileName;
+        // Show the Bootstrap modal
+				$('#videoModal').modal('show');
+        // Try to play the video
+				video.play()
+					.then(() => {
+						status.textContent = "";
+					})
+					.catch(() => {
+						status.textContent = `Could not play video ${fileName}.`;
+					});
+				return;
+			}
+    // Otherwise, play the normal audio message
+			const fileName = `${code}.wav`;
+			video.pause();
+			video.currentTime = 0;
+			$('#videoModal').modal('hide');
+			audio.src = "../audio/" + fileName;
+			audio.hidden = false;
+			audio.play()
+				.then(() => {
+					status.textContent = "";
+				})
+				.catch(() => {
+					status.textContent = `Could not play file ${fileName}. Please check your code again.`;
+				});
+		});
+		</script>
     </body>
 </html>
